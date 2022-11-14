@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="img">
+    <img src="../../../assets/img/authentication.svg" />
+  </div>
+  <div class="login-container">
+    <form>
+      <h2>Entrar</h2>
+      <p>Bem-vindo de volta !</p>
+      <div class="input-div one">
+        <div class="i">
+          <i class="fas fa-user"></i>
+        </div>
+        <div>
+          <h5>Email</h5>
+          <input
+            class="input"
+            type="text"
+            [(ngModel)]="email"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <div class="input-div two">
+        <div class="i">
+          <i class="fas fa-key"></i>
+        </div>
+        <div>
+          <h5>Senha</h5>
+          <input
+            class="input"
+            type="password"
+            [(ngModel)]="password"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <input type="submit" class="btn" value="Entrar" (click)="login()"/>
+      <div class="others"></div>
+      <div class="account">
+        <p>Ainda não possui conta ?</p>
+        <a href="" routerLink="/register">Cadastre-se</a>
+      </div>
+    </form>
+  </div>
+</div>

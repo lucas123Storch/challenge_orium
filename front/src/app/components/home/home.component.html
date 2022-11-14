@@ -1,0 +1,210 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Lista de Tarefas</a>
+  <div class="form-inline my-2 my-lg-0">
+    <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      type="submit"
+      (click)="logout()"
+    >
+      Sair
+    </button>
+  </div>
+</nav>
+
+<div class="body">
+  <div class="row">
+    <div class="col-4">
+      <button
+        class="btn btn-sm btn-outline-default btn-round btn-icon"
+        (click)="addList(newListModal)"
+      >
+        Nova Lista
+      </button>
+    </div>
+  </div>
+  <br /><br />
+
+  <div class="row">
+    <div class="col-4" *ngFor="let item of items">
+      <div class="card" (click)="detail(modalTask, item)">
+        <h3 class="title">{{ item.listName }}</h3>
+        <p class="qtd">Qtd. de Items: {{ getTasksList(item).length }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalTask>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Tasks</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-6">
+        <h3>{{ listDetail.listName }}</h3>
+      </div>
+      <div class="col-6">
+        <button
+          class="btn btn-sm btn-outline-default btn-round btn-icon"
+          (click)="addTask(newTask)"
+        >
+          Novo
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <button
+          class="btn btn-sm btn-outline-default btn-round btn-icon"
+          tooltip="Editar"
+          (click)="editList(newListModal)"
+        >
+          <i class="fa fa-edit"></i>
+        </button>
+      </div>
+      <div class="col-2">
+        <button
+          class="btn btn-sm btn-outline-danger btn-round btn-icon bt-view"
+          tooltip="Deletar"
+          (click)="deleteList()"
+        >
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <h6>Tarefas</h6>
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="text-primary">
+          <th>Titulo</th>
+          <th>Descrição</th>
+          <th style="text-align: center">Ações</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tasksList">
+            <td>
+              {{ item.title }}
+            </td>
+            <td>
+              {{ item.description }}
+            </td>
+            <td>
+              <div class="row">
+                <div class="col-6">
+                  <button
+                    class="btn btn-sm btn-outline-default btn-round btn-icon"
+                    tooltip="Editar"
+                    (click)="edit(newTask, item)"
+                  >
+                    <i class="fa fa-edit"></i>
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button
+                    class="btn btn-sm btn-outline-danger btn-round btn-icon bt-view"
+                    tooltip="Deletar"
+                    (click)="deleteTask(item)"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #newTask>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Tasks</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <h3>{{ titleModalTask }}</h3>
+
+    <form>
+      <div class="input-div one">
+        <div>
+          <input
+            class="input"
+            type="text"
+            placeholder="Titulo"
+            [(ngModel)]="title"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <div class="input-div two">
+        <div>
+          <input
+            class="input"
+            type="text"
+            placeholder="Descrição"
+            [(ngModel)]="description"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <div class="btn-container">
+        <button class="btn-action" (click)="saveTask()">Salvar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #newListModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Nova Lista</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <h3>{{titleModalTask}}</h3>
+
+    <form>
+      <div class="input-div one">
+        <div>
+          <input
+            class="input"
+            type="text"
+            placeholder="Nome da Lista"
+            [(ngModel)]="listName"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <div class="btn-container">
+        <button class="btn-action" (click)="saveList()">Salvar</button>
+      </div>
+      <!-- The Modal -->
+    </form>
+  </div>
+</ng-template>
